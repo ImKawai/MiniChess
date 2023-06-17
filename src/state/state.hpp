@@ -45,14 +45,14 @@ class State{
     //You may want to add more property for a state
     GameState game_state = UNKNOWN;
     Board board;
-    int player = 0;
+    int player = 0;  // 0:white 1:black
     std::vector<Move> legal_actions;
-    
+
     State(){};
     State(int player): player(player){};
     State(Board board): board(board){};
     State(Board board, int player): board(board), player(player){};
-    
+
     int evaluate();
     State* next_state(Move move);
     void get_legal_actions();
