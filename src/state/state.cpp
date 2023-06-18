@@ -5,6 +5,49 @@
 #include "./state.hpp"
 #include "../config.hpp"
 
+constexpr int weight[5][BOARD_H][BOARD_W] =
+{
+{    // pawn
+    {9, 9, 9, 9, 9},
+    {1, 1, 1, 1, 1},
+    {2, 6, 6, 6, 2},
+    {2, 6, 6, 6, 2},
+    {1, 1, 1, 1, 1},
+    {9, 9, 9, 9, 9}
+},
+{    // rook
+    {1, 1, 1, 1, 1},
+    {1, 2, 6, 2, 1},
+    {1, 6, 1, 6, 1},
+    {1, 6, 1, 6, 1},
+    {1, 2, 6, 2, 1},
+    {1, 1, 1, 1, 1}
+},
+{    // knight  2(1) 6(1) 6(2) 6(2) 6(6)
+    {1, 1, 2, 1, 1},
+    {1, 2, 2, 2, 1},
+    {2, 2, 6, 2, 2},
+    {2, 2, 6, 2, 2},
+    {1, 2, 2, 2, 1},
+    {1, 1, 2, 1, 1}
+},
+{    // bishop
+    {1, 2, 1, 2, 1},
+    {2, 2, 2, 2, 2},
+    {1, 2, 6, 2, 1},
+    {1, 2, 6, 2, 1},
+    {2, 2, 2, 2, 2},
+    {1, 2, 1, 2, 1}
+},
+{    // queen
+    {1, 1, 2, 1, 1},
+    {1, 2, 2, 2, 1},
+    {2, 2, 2, 2, 2},
+    {2, 2, 2, 2, 2},
+    {1, 2, 2, 2, 1},
+    {1, 1, 2, 1, 1}
+}
+};
 
 /**
  * @brief evaluate the state
@@ -15,27 +58,28 @@ int State::evaluate(){
   // [TODO] design your own evaluation function
   int value = 0;
 
+  // bool isolated;
   for (int r=0; r<BOARD_H; r++)
     for (int c=0; c<BOARD_W; c++)
       switch (board.board[0][r][c])
       {
       case 1:  // pawn
-        value += 2;
+        value += 1 * weight[0][r][c];
         break;
       case 2:  // rook
-        value += 6;
+        value += 5 * weight[1][r][c];
         break;
       case 3:  // knight
-        value += 7;
+        value += 3 * weight[2][r][c];
         break;
       case 4:  // bishop
-        value += 8;
+        value += 3 * weight[3][r][c];
         break;
       case 5:  // queen
-        value += 20;
+        value += 9 * weight[4][r][c];
         break;
       case 6:  // king
-        value += 100000;
+        value += 200;
         break;
 
       default:
@@ -47,22 +91,22 @@ int State::evaluate(){
       switch (board.board[1][r][c])
       {
       case 1:  // pawn
-        value -= 2;
+        value -= 1 * weight[0][r][c];
         break;
       case 2:  // rook
-        value -= 6;
+        value -= 5 * weight[1][r][c];
         break;
       case 3:  // knight
-        value -= 7;
+        value -= 3 * weight[2][r][c];
         break;
       case 4:  // bishop
-        value -= 8;
+        value -= 3 * weight[3][r][c];
         break;
       case 5:  // queen
-        value -= 20;
+        value -= 9 * weight[4][r][c];
         break;
       case 6:  // king
-        value -= 100000;
+        value -= 200;
         break;
 
       default:
