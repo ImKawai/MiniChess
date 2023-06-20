@@ -17,25 +17,25 @@ constexpr int weight[5][BOARD_H][BOARD_W] =
 },
 {    // rook
     {1, 1, 1, 1, 1},
-    {1, 2, 6, 2, 1},
-    {1, 6, 1, 6, 1},
-    {1, 6, 1, 6, 1},
-    {1, 2, 6, 2, 1},
+    {1, 2, 3, 2, 1},
+    {1, 3, 1, 3, 1},
+    {1, 3, 1, 3, 1},
+    {1, 2, 3, 2, 1},
     {1, 1, 1, 1, 1}
 },
-{    // knight  2(1) 6(1) 6(2) 6(2) 6(6)
+{    // knight
     {1, 1, 2, 1, 1},
     {1, 2, 2, 2, 1},
-    {2, 2, 6, 2, 2},
-    {2, 2, 6, 2, 2},
+    {2, 2, 3, 2, 2},
+    {2, 2, 3, 2, 2},
     {1, 2, 2, 2, 1},
     {1, 1, 2, 1, 1}
 },
 {    // bishop
     {1, 2, 1, 2, 1},
     {2, 2, 2, 2, 2},
-    {1, 2, 6, 2, 1},
-    {1, 2, 6, 2, 1},
+    {1, 2, 3, 2, 1},
+    {1, 2, 3, 2, 1},
     {2, 2, 2, 2, 2},
     {1, 2, 1, 2, 1}
 },
@@ -64,19 +64,19 @@ int State::evaluate(){
       switch (board.board[0][r][c])
       {
       case 1:  // pawn
-        value += 1 * weight[0][r][c];
+        value += 1 + weight[0][r][c];
         break;
       case 2:  // rook
-        value += 5 * weight[1][r][c];
+        value += 5 + weight[1][r][c];
         break;
       case 3:  // knight
-        value += 3 * weight[2][r][c];
+        value += 3 + weight[2][r][c];
         break;
       case 4:  // bishop
-        value += 3 * weight[3][r][c];
+        value += 3 + weight[3][r][c];
         break;
       case 5:  // queen
-        value += 9 * weight[4][r][c];
+        value += 9 + weight[4][r][c];
         break;
       case 6:  // king
         value += 200;
@@ -91,19 +91,19 @@ int State::evaluate(){
       switch (board.board[1][r][c])
       {
       case 1:  // pawn
-        value -= 1 * weight[0][r][c];
+        value -= 1 + weight[0][r][c];
         break;
       case 2:  // rook
-        value -= 5 * weight[1][r][c];
+        value -= 5 + weight[1][r][c];
         break;
       case 3:  // knight
-        value -= 3 * weight[2][r][c];
+        value -= 3 + weight[2][r][c];
         break;
       case 4:  // bishop
-        value -= 3 * weight[3][r][c];
+        value -= 3 + weight[3][r][c];
         break;
       case 5:  // queen
-        value -= 9 * weight[4][r][c];
+        value -= 9 + weight[4][r][c];
         break;
       case 6:  // king
         value -= 200;
